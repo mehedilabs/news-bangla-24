@@ -11,7 +11,7 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4">
         <div className="relative flex items-center justify-between py-3">
           {/* Center Logo + Title */}
-          <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-3">
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 flex items-center gap-2">
             <Image
               className="w-10 h-10"
               height={50}
@@ -30,16 +30,15 @@ const Header = () => {
           </div>
 
           {/* Auth Buttons */}
-          <div className="ml-auto flex items-center gap-2">
-            <div className="ml-auto flex items-center gap-2">
-              <button className="btn btn-sm border border-gray-300 bg-white text-gray-700 hover:bg-gray-200">
-                সাইন ইন
-              </button>
 
-              <button className="btn btn-sm bg-red-700 text-white hover:bg-red-800">
-                সাইন আপ
-              </button>
-            </div>
+          <div className="ml-auto flex items-center gap-2">
+            <button className="btn btn-sm border border-gray-300 bg-white text-gray-700 hover:bg-gray-200">
+              সাইন ইন
+            </button>
+
+            <button className="btn btn-sm bg-red-700 text-white hover:bg-red-800">
+              সাইন আপ
+            </button>
           </div>
         </div>
       </div>
