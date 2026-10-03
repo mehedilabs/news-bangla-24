@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-interface News {
+export interface News {
   id: string;
   title: string;
   description: string;
@@ -23,7 +23,7 @@ const MainNews = ({ news }: { news: News[] }) => {
 
   return (
     <div className="flex gap-5">
-      <div className="card bg-base-100 flex-[1.2] shadow-sm">
+      <div className="card bg-base-100 flex-1 shadow-sm">
         <figure className="relative overflow-hidden">
           <Image
             height={600}
@@ -35,7 +35,7 @@ const MainNews = ({ news }: { news: News[] }) => {
         </figure>
 
         <div className="card-body">
-          <span className="text-sm font-semibold text-red-700">
+          <span className="text-sm font-semibold text-cyan-700">
             {firstNews.category}
           </span>
 
@@ -67,7 +67,7 @@ const MainNews = ({ news }: { news: News[] }) => {
             key={on.id}
             className="group border-b border-gray-200 py-4 first:pt-0 last:border-b-0"
           >
-            <p className="mb-1 text-sm font-semibold text-red-700">
+            <p className="mb-1 text-sm font-semibold text-cyan-700">
               {on.category}
             </p>
 

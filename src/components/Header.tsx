@@ -1,5 +1,6 @@
 import Image from "next/image";
 import NavLinks from "./NavLinks";
+import Marquee from "./Marquee";
 
 const Header = () => {
   const date = new Date().toLocaleDateString("bn-BD", {
@@ -7,7 +8,7 @@ const Header = () => {
   });
 
   return (
-    <header>
+    <header className="sticky top-0 z-50 bg-white">
       <div className="max-w-7xl mx-auto px-4">
         <div className="relative flex items-center justify-between py-3">
           {/* Center Logo + Title */}
@@ -21,7 +22,7 @@ const Header = () => {
             />
 
             <div>
-              <h1 className="text-xl md:text-2xl text-red-700 font-bold whitespace-nowrap">
+              <h1 className="text-xl md:text-2xl text-cyan-700 font-bold whitespace-nowrap">
                 Bangla News 24
               </h1>
 
@@ -36,13 +37,14 @@ const Header = () => {
               সাইন ইন
             </button>
 
-            <button className="btn btn-sm bg-red-700 text-white hover:bg-red-800">
+            <button className="btn btn-sm bg-cyan-700 text-white hover:bg-cyan-800">
               সাইন আপ
             </button>
           </div>
         </div>
       </div>
       <NavLinks />
+      <Marquee />
     </header>
   );
 };
