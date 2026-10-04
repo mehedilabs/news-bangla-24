@@ -3,7 +3,7 @@ import { News } from "./MainNews";
 
 const NewsCard = ({ news }: { news: News }) => {
   return (
-    <article className="group overflow-hidden rounded-xl bg-base-100 shadow-sm transition-shadow hover:shadow-md">
+    <article className="group overflow-hidden rounded-xl bg-base-100 shadow-sm transition-shadow border border-transparent hover:border-cyan-300 hover:shadow-md">
       {/* Image */}
       <div className="relative h-48 overflow-hidden">
         <Image
