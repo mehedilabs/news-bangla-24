@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { News } from "./MainNews";
 
 const MarkRead = async () => {
@@ -20,14 +21,12 @@ const MarkRead = async () => {
             </span>
 
             {/* Title */}
-            <a
-              href={""}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href={`/news/${n.id}`}
               className="font-semibold leading-6 text-gray-800 transition-colors hover:text-red-700"
             >
               {n.title}
-            </a>
+            </Link>
           </div>
         ))}
       </div>

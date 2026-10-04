@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export interface News {
   id: string;
@@ -39,9 +40,12 @@ const MainNews = ({ news }: { news: News[] }) => {
             {firstNews.category}
           </span>
 
-          <h2 className="card-title hover:text-red-700 transition-colors">
+          <Link
+            href={`/news/${firstNews.id}`}
+            className="card-title transition-colors hover:text-red-700"
+          >
             {firstNews.title}
-          </h2>
+          </Link>
 
           <p className="line-clamp-3 text-gray-600">{firstNews.description}</p>
 
@@ -51,9 +55,7 @@ const MainNews = ({ news }: { news: News[] }) => {
             </span>
 
             <a
-              href={""}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={`/news/${firstNews.id}`}
               className="font-semibold text-red-700 hover:text-red-900"
             >
               বিস্তারিত →
@@ -61,7 +63,7 @@ const MainNews = ({ news }: { news: News[] }) => {
           </div>
         </div>
       </div>
-      <div className="grid gap-2 flex-1 shadow-sm bg-base-100 p-3 rounded-[10px]">
+      <div className="grid flex-1 gap-2 rounded-[10px] bg-base-100 p-3 shadow-sm">
         {otherNews.slice(0, 4).map((on) => (
           <div
             key={on.id}
@@ -71,9 +73,12 @@ const MainNews = ({ news }: { news: News[] }) => {
               {on.category}
             </p>
 
-            <h3 className="font-semibold leading-6 text-gray-800 transition-colors group-hover:text-red-700">
+            <Link
+              href={`/news/${on.id}`}
+              className="font-semibold leading-6 text-gray-800 transition-colors group-hover:text-red-700"
+            >
               {on.title}
-            </h3>
+            </Link>
           </div>
         ))}
       </div>
