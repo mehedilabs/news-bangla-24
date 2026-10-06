@@ -3,6 +3,8 @@ import React from "react";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { authClient } from "@/lib/auth-client";
+import { FcGoogle } from "react-icons/fc";
+import { DiGithub } from "react-icons/di";
 
 const SignIn = () => {
   const onSubmit = async (e: React.SubmitEvent<HTMLElement>) => {
@@ -26,8 +28,18 @@ const SignIn = () => {
     }
 
     if (data) {
-      console.log(data);
+      toast.success("সফলভাবে লগইন হয়েছে");
     }
+  };
+  const handleGoogleSignIn = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+    });
+  };
+  const handleGithubSignIn = async () => {
+    await authClient.signIn.social({
+      provider: "github",
+    });
   };
 
   return (
@@ -77,12 +89,28 @@ const SignIn = () => {
         <p className="mt-5 text-center text-sm text-gray-600">
           অ্যাকাউন্ট নেই?{" "}
           <Link
-            href="/sign-up"
+            href="/signup"
             className="font-semibold text-cyan-700 hover:text-cyan-900"
           >
             সাইন আপ করুন
           </Link>
         </p>
+        <button
+          type="button"
+          onClick={handleGoogleSignIn}
+          className="btn mt-4 w-full border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+        >
+          <FcGoogle className="text-xl" />
+          Google দিয়ে সাইন আপ করুন
+        </button>
+        <button
+          type="button"
+          onClick={handleGithubSignIn}
+          className="btn mt-4 w-full border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+        >
+          <DiGithub className="text-xl" />
+          Github দিয়ে সাইন আপ করুন
+        </button>
       </div>
     </div>
   );

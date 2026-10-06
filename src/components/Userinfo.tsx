@@ -21,7 +21,10 @@ const Userinfo = () => {
             <div className="avatar">
               <div className="w-8 rounded-full ring-2 ring-primary ring-offset-2">
                 <Image
-                  src="https://mir-s3-cdn-cf.behance.net/projects/404/69688f253332769.Y3JvcCwxNDE4LDExMDksMCw1Ng.jpg"
+                  src={
+                    user?.image ||
+                    "https://img.daisyui.com/images/profile/demo/spiderperson@192.webp"
+                  }
                   alt="Profile"
                   width={32}
                   height={32}
