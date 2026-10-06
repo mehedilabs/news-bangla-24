@@ -27,7 +27,7 @@ const Header = () => {
 
             <div>
               <h1 className="text-xl md:text-2xl text-cyan-700 font-bold whitespace-nowrap">
-                Bangla News 24
+                News Bangla 24
               </h1>
 
               <p className="text-sm text-gray-500 whitespace-nowrap">{date}</p>

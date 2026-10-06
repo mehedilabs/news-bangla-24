@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 interface DescriptionBlock {
   type: string;
@@ -38,17 +39,19 @@ const NewsDetails = async ({ params }: { params: { newsId: string } }) => {
         dateStyle: "long",
       })
     : "";
-
+  if (!news) {
+    notFound();
+  }
   return (
     <main className="mx-auto max-w-4xl px-4 py-10">
       {/* Title */}
       <h1 className="text-3xl font-bold leading-tight text-gray-900 md:text-5xl">
-        {news.title}
+        {news?.title}
       </h1>
 
       {/* Description */}
       <div className="mt-8">
-        {news.description?.blocks?.map(
+        {news?.description?.blocks?.map(
           (block: DescriptionBlock, index: number) =>
             block.model.blocks?.map((paragraph, paragraphIndex) => (
               <p
@@ -64,7 +67,7 @@ const NewsDetails = async ({ params }: { params: { newsId: string } }) => {
       {/* Author, Date & Source */}
       <div className="mt-5 border-b border-gray-200 pb-4">
         <div className="flex flex-wrap items-center gap-2 text-sm text-gray-500">
-          {news.byline?.[0]?.name && <span>{news.byline[0].name}</span>}
+          {news?.byline?.[0]?.name && <span>{news.byline[0].name}</span>}
 
           {publishedDate && (
             <>
@@ -73,7 +76,7 @@ const NewsDetails = async ({ params }: { params: { newsId: string } }) => {
             </>
           )}
 
-          {news.source && (
+          {news?.source && (
             <>
               <span>•</span>
               <span>{news.source}</span>
@@ -83,7 +86,7 @@ const NewsDetails = async ({ params }: { params: { newsId: string } }) => {
       </div>
 
       {/* Main Image */}
-      {news.imageUrl && (
+      {news?.imageUrl && (
         <div className="mt-8 overflow-hidden rounded-xl">
           <Image
             src={news.imageUrl}
@@ -97,7 +100,7 @@ const NewsDetails = async ({ params }: { params: { newsId: string } }) => {
 
       {/* Full Article */}
       <article className="mt-8">
-        {news.body?.slice(1).map((item: NewsBodyItem, index: number) => {
+        {news?.body?.slice(1).map((item: NewsBodyItem, index: number) => {
           {
             /* Image */
           }
@@ -163,7 +166,7 @@ const NewsDetails = async ({ params }: { params: { newsId: string } }) => {
       </article>
 
       {/* Topics */}
-      {news.topics?.length > 0 && (
+      {news?.topics?.length > 0 && (
         <div className="mt-10 border-t border-gray-200 pt-6">
           <h3 className="mb-3 text-lg font-bold text-gray-900">বিষয়</h3>
 

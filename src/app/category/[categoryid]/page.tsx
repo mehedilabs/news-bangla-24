@@ -1,5 +1,6 @@
 import NewsCard from "@/components/NewsCard";
 import { News } from "@/components/MainNews";
+import { notFound } from "next/navigation";
 
 const CategoryNews = async ({
   params,
@@ -14,6 +15,9 @@ const CategoryNews = async ({
 
   const data = await res.json();
   const categoryNews: News[] = data.data;
+  if (!categoryNews) {
+    notFound();
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
