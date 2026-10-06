@@ -1,7 +1,42 @@
-import React from "react";
+"use client";
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { ReactEventHandler } from "react";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
+  const onSubmit = async (e: React.SubmitEvent<HTMLElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const user = Object.fromEntries(formData.entries()) as {
+      name: string;
+      email: string;
+      image: string;
+      password: string;
+    };
+
+    const { data, error } = await authClient.signUp.email({
+      ...user,
+      callbackURL: "/",
+    });
+
+    if (error) {
+      if (error.code === "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL") {
+        toast.error("এই ইমেইল দিয়ে ইতোমধ্যে অ্যাকাউন্ট তৈরি করা হয়েছে");
+      } else {
+        toast.error(error.message || "Sign up failed.");
+      }
+
+      return;
+    }
+
+    if (data) {
+      redirect("/");
+    }
+  };
+
   return (
     <div className="flex min-h-[70vh] items-center justify-center px-4 py-10">
       <div className="w-full max-w-md rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
@@ -13,7 +48,7 @@ const SignUp = () => {
           নতুন অ্যাকাউন্ট তৈরি করুন
         </p>
 
-        <form className="mt-6 space-y-4">
+        <form onSubmit={onSubmit} className="mt-6 space-y-4">
           <div>
             <label className="mb-1 block text-sm font-medium text-gray-700">
               নাম
