@@ -18,19 +18,21 @@ const Userinfo = () => {
         <>
           {/* Profile - Left */}
           <div className="flex items-center gap-2">
-            <div className="avatar">
-              <div className="w-8 rounded-full ring-2 ring-primary ring-offset-2">
-                <Image
-                  src={
-                    user?.image ||
-                    "https://img.daisyui.com/images/profile/demo/spiderperson@192.webp"
-                  }
-                  alt="Profile"
-                  width={32}
-                  height={32}
-                />
+            <Link href={"/profile"}>
+              <div className="avatar">
+                <div className="w-8 rounded-full ring-2 ring-primary ring-offset-2">
+                  <Image
+                    src={
+                      user?.image ||
+                      "https://img.daisyui.com/images/profile/demo/spiderperson@192.webp"
+                    }
+                    alt="Profile"
+                    width={32}
+                    height={32}
+                  />
+                </div>
               </div>
-            </div>
+            </Link>
 
             <h2 className="mt-1 text-xs font-medium whitespace-nowrap">
               {user?.name}
