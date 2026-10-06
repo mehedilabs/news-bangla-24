@@ -1,6 +1,7 @@
 import Image from "next/image";
 import NavLinks from "./NavLinks";
 import Marquee from "./Marquee";
+import Userinfo from "./Userinfo";
 
 const Header = () => {
   const date = new Date().toLocaleDateString("bn-BD", {
@@ -11,6 +12,9 @@ const Header = () => {
     <header className="sticky top-0 z-50 bg-white">
       <div className="max-w-7xl mx-auto px-4">
         <div className="relative flex items-center justify-between py-3">
+          {/* Profile / Auth */}
+          <Userinfo />
+
           {/* Center Logo + Title */}
           <div className="absolute top-4 left-1/2 -translate-x-1/2 flex items-center gap-2">
             <Image
@@ -29,20 +33,9 @@ const Header = () => {
               <p className="text-sm text-gray-500 whitespace-nowrap">{date}</p>
             </div>
           </div>
-
-          {/* Auth Buttons */}
-
-          <div className="ml-auto flex items-center gap-2">
-            <button className="btn btn-sm border border-gray-300 bg-white text-gray-700 hover:bg-gray-200">
-              সাইন ইন
-            </button>
-
-            <button className="btn btn-sm bg-cyan-700 text-white hover:bg-cyan-800">
-              সাইন আপ
-            </button>
-          </div>
         </div>
       </div>
+
       <NavLinks />
       <Marquee />
     </header>

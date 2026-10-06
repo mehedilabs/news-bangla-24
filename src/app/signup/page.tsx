@@ -2,7 +2,6 @@
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { ReactEventHandler } from "react";
 import { toast } from "react-toastify";
 
 const SignUp = () => {
@@ -25,8 +24,6 @@ const SignUp = () => {
     if (error) {
       if (error.code === "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL") {
         toast.error("এই ইমেইল দিয়ে ইতোমধ্যে অ্যাকাউন্ট তৈরি করা হয়েছে");
-      } else {
-        toast.error(error.message || "Sign up failed.");
       }
 
       return;
