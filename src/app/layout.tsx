@@ -26,6 +26,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           position="top-right"
           toastClassName="text-sm min-h-0"
           style={{ width: "auto", maxWidth: "90vw" }}
+          autoClose={2000}
           hideProgressBar
         />
       </body>
