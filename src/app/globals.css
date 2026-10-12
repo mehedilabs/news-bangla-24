@@ -2,3 +2,12 @@
 @plugin "daisyui";
 
 
+@media (max-width: 639px) {
+  .Toastify__toast-container--top-right {
+    top: 6px !important;
+    right: 8px !important;
+    left: auto !important;
+    width: max-content !important;
+    max-width: calc(100vw - 16px) !important;
+  }
+}

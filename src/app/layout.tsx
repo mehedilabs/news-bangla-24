@@ -4,6 +4,8 @@ import "./globals.css";
 import Header from "@/components/Header";
 import { ToastContainer } from "react-toastify";
 import Footer from "@/components/Footer";
+import AuthToast from "@/components/AuthToast";
+import "react-toastify/dist/ReactToastify.css";
 
 const notoSerifBengali = Noto_Serif_Bengali({
   subsets: ["latin", "bengali"],
@@ -24,13 +26,21 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+
         <ToastContainer
           position="top-right"
-          toastClassName="text-sm min-h-0"
-          style={{ width: "auto", maxWidth: "90vw" }}
           autoClose={2000}
           hideProgressBar
+          closeButton={false}
+          toastClassName="!min-h-0 !w-fit !max-w-[90vw] !rounded-lg !border !border-white/10 !bg-[#242424] !px-3 !py-2 !text-xs !text-white !shadow-lg"
+          style={{
+            width: "max-content",
+            maxWidth: "90vw",
+          }}
+          limit={3}
         />
+
+        <AuthToast />
       </body>
     </html>
   );

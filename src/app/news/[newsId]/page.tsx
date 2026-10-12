@@ -24,39 +24,49 @@ interface NewsBodyItem {
   copyrightHolder?: string;
 }
 
-const NewsDetails = async ({ params }: { params: { newsId: string } }) => {
+const NewsDetails = async ({
+  params,
+}: {
+  params: Promise<{ newsId: string }>;
+}) => {
   const { newsId } = await params;
 
   const res = await fetch(
     `https://news-api-v2.vercel.app/api/article/${newsId}`,
   );
 
+  if (!res.ok) {
+    notFound();
+  }
+
   const data = await res.json();
   const news = data.data;
 
-  const publishedDate = news?.firstPublished
+  if (!news) {
+    notFound();
+  }
+
+  const publishedDate = news.firstPublished
     ? new Date(news.firstPublished).toLocaleDateString("bn-BD", {
         dateStyle: "long",
       })
     : "";
-  if (!news) {
-    notFound();
-  }
+
   return (
-    <main className="mx-auto max-w-4xl px-4 py-10">
+    <main className="mx-auto w-full max-w-4xl px-3 py-6 sm:px-4 sm:py-8 lg:py-10">
       {/* Title */}
-      <h1 className="text-3xl font-bold leading-tight text-gray-900 md:text-5xl">
-        {news?.title}
+      <h1 className="break-words text-2xl font-bold leading-snug text-gray-900 sm:text-3xl sm:leading-tight md:text-5xl">
+        {news.title}
       </h1>
 
       {/* Description */}
-      <div className="mt-8">
-        {news?.description?.blocks?.map(
+      <div className="mt-5 sm:mt-7 lg:mt-8">
+        {news.description?.blocks?.map(
           (block: DescriptionBlock, index: number) =>
             block.model.blocks?.map((paragraph, paragraphIndex) => (
               <p
                 key={`${index}-${paragraphIndex}`}
-                className="mb-5 text-xl font-medium leading-9 text-gray-800"
+                className="mb-4 text-base font-medium leading-7 text-gray-800 sm:mb-5 sm:text-lg sm:leading-8 lg:text-xl lg:leading-9"
               >
                 {paragraph.model.text}
               </p>
@@ -65,9 +75,9 @@ const NewsDetails = async ({ params }: { params: { newsId: string } }) => {
       </div>
 
       {/* Author, Date & Source */}
-      <div className="mt-5 border-b border-gray-200 pb-4">
-        <div className="flex flex-wrap items-center gap-2 text-sm text-gray-500">
-          {news?.byline?.[0]?.name && <span>{news.byline[0].name}</span>}
+      <div className="mt-4 border-b border-gray-200 pb-4 sm:mt-5">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs leading-5 text-gray-500 sm:text-sm">
+          {news.byline?.[0]?.name && <span>{news.byline[0].name}</span>}
 
           {publishedDate && (
             <>
@@ -76,7 +86,7 @@ const NewsDetails = async ({ params }: { params: { newsId: string } }) => {
             </>
           )}
 
-          {news?.source && (
+          {news.source && (
             <>
               <span>•</span>
               <span>{news.source}</span>
@@ -85,9 +95,9 @@ const NewsDetails = async ({ params }: { params: { newsId: string } }) => {
         </div>
       </div>
 
-      {/* Main Image */}
-      {news?.imageUrl && (
-        <div className="mt-8 overflow-hidden rounded-xl">
+      {/* Main Image — image handling will be reviewed at the end */}
+      {news.imageUrl && (
+        <div className="mt-6 overflow-hidden rounded-xl sm:mt-8">
           <Image
             src={news.imageUrl}
             alt={news.title}
@@ -99,14 +109,11 @@ const NewsDetails = async ({ params }: { params: { newsId: string } }) => {
       )}
 
       {/* Full Article */}
-      <article className="mt-8">
-        {news?.body?.slice(1).map((item: NewsBodyItem, index: number) => {
-          {
-            /* Image */
-          }
+      <article className="mt-6 min-w-0 sm:mt-8">
+        {news.body?.slice(1).map((item: NewsBodyItem, index: number) => {
           if (item.type === "image" && item.url) {
             return (
-              <figure key={index} className="my-8">
+              <figure key={index} className="my-6 sm:my-8">
                 <div className="overflow-hidden rounded-xl">
                   <Image
                     src={item.url}
@@ -118,13 +125,13 @@ const NewsDetails = async ({ params }: { params: { newsId: string } }) => {
                 </div>
 
                 {item.caption && (
-                  <figcaption className="mt-2 text-sm text-gray-500">
+                  <figcaption className="mt-2 break-words text-xs leading-5 text-gray-500 sm:text-sm">
                     {item.caption}
                   </figcaption>
                 )}
 
                 {item.copyrightHolder && (
-                  <p className="mt-1 text-xs text-gray-400">
+                  <p className="mt-1 break-words text-xs text-gray-400">
                     © {item.copyrightHolder}
                   </p>
                 )}
@@ -132,28 +139,25 @@ const NewsDetails = async ({ params }: { params: { newsId: string } }) => {
             );
           }
 
-          {
-            /* Subheading */
-          }
           if (item.type === "subheading" && item.text) {
             return (
               <h2
                 key={index}
-                className="mt-10 mb-4 border-l-4 border-cyan-700 pl-4 text-2xl font-bold text-gray-900"
+                className="mt-8 mb-3 border-l-4 border-cyan-700 pl-3 text-xl font-bold leading-snug text-gray-900 sm:mt-10 sm:mb-4 sm:pl-4 sm:text-2xl"
               >
                 {item.text}
               </h2>
             );
           }
 
-          {
-            /* Text */
-          }
           if (item.type === "text" && item.text) {
             return (
-              <div key={index} className="mb-6 text-lg leading-9 text-gray-700">
+              <div
+                key={index}
+                className="mb-5 break-words text-base leading-8 text-gray-700 sm:mb-6 sm:text-lg sm:leading-9"
+              >
                 {item.text.split("\n").map((paragraph, paragraphIndex) => (
-                  <p key={paragraphIndex} className="mb-4">
+                  <p key={paragraphIndex} className="mb-4 last:mb-0">
                     {paragraph}
                   </p>
                 ))}
@@ -166,15 +170,17 @@ const NewsDetails = async ({ params }: { params: { newsId: string } }) => {
       </article>
 
       {/* Topics */}
-      {news?.topics?.length > 0 && (
-        <div className="mt-10 border-t border-gray-200 pt-6">
-          <h3 className="mb-3 text-lg font-bold text-gray-900">বিষয়</h3>
+      {news.topics?.length > 0 && (
+        <div className="mt-8 border-t border-gray-200 pt-5 sm:mt-10 sm:pt-6">
+          <h3 className="mb-3 text-base font-bold text-gray-900 sm:text-lg">
+            বিষয়
+          </h3>
 
           <div className="flex flex-wrap gap-2">
             {news.topics.map((topic: { id: string; name: string }) => (
               <span
                 key={topic.id}
-                className="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700"
+                className="max-w-full break-words rounded-full bg-gray-100 px-3 py-1 text-xs leading-5 text-gray-700 sm:text-sm"
               >
                 {topic.name}
               </span>

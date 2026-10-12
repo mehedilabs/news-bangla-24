@@ -1,4 +1,4 @@
-import Link from "next/link";
+import ActiveNavLink from "./ActiveNavLink";
 
 interface Navs {
   slug: string;
@@ -13,24 +13,19 @@ const NavLinks = async () => {
   const data = await res.json();
   const navs: Navs[] = data.data;
   const filteredNavs = navs.filter((n) => n.scrapable);
+
   return (
-    <div className="flex justify-center gap-5 mt-5">
-      <Link
-        href={"/"}
-        className="text-gray-700 hover:text-red-700 transition-colors"
-      >
-        হোম
-      </Link>
-      {filteredNavs.map((n, i) => (
-        <Link
-          key={i}
-          href={`/category/${n.slug}`}
-          className="text-gray-700 hover:text-red-700 transition-colors"
-        >
-          {n.title}
-        </Link>
-      ))}
-    </div>
+    <nav className="mt-2 w-full max-w-full overflow-hidden border-y border-gray-100 bg-white sm:mt-5">
+      <div className="mx-auto flex max-w-7xl items-center justify-center gap-x-4 overflow-x-auto px-3 py-2 whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-5 sm:px-4 sm:py-2">
+        <ActiveNavLink href="/">হোম</ActiveNavLink>
+
+        {filteredNavs.map((n) => (
+          <ActiveNavLink key={n.slug} href={`/category/${n.slug}`}>
+            {n.title}
+          </ActiveNavLink>
+        ))}
+      </div>
+    </nav>
   );
 };
 

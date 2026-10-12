@@ -2,7 +2,6 @@
 
 import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
-
 import React, { useState } from "react";
 
 const ProfilePage = () => {
@@ -28,19 +27,19 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="flex min-h-[80vh] items-center justify-center bg-gray-50 px-4 py-10">
-      <div className="relative h-[520px] w-full max-w-5xl overflow-hidden">
+    <main className="flex min-h-[80vh] items-center justify-center bg-gray-50 px-3 py-8 sm:px-5 sm:py-10">
+      <div className="relative min-h-[500px] w-full max-w-5xl overflow-hidden sm:min-h-[520px]">
         {/* Profile Card */}
         <div
-          className={`absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-in-out ${
+          className={`absolute inset-0 flex items-start justify-center overflow-y-auto transition-transform duration-500 ease-in-out sm:items-center ${
             isEditing ? "-translate-x-full" : "translate-x-0"
           }`}
         >
-          <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+          <div className="my-2 w-full max-w-md rounded-2xl border border-gray-200 bg-white p-4 shadow-sm sm:my-0 sm:p-6 md:p-8">
             {/* Profile Image */}
             <div className="flex justify-center">
               <div className="avatar">
-                <div className="w-28 rounded-full ring-4 ring-cyan-100 ring-offset-2">
+                <div className="w-16 rounded-full ring-4 ring-cyan-100 ring-offset-2 sm:w-28">
                   <Image
                     src={
                       user?.image ||
@@ -56,25 +55,29 @@ const ProfilePage = () => {
             </div>
 
             {/* Name & Email */}
-            <div className="mt-5 text-center">
-              <h1 className="text-2xl font-bold text-gray-900">{user?.name}</h1>
+            <div className="mt-5 min-w-0 text-center">
+              <h1 className="break-words text-xl font-bold text-gray-900 sm:text-2xl">
+                {user?.name}
+              </h1>
 
-              <p className="mt-1 text-sm text-gray-500">{user?.email}</p>
+              <p className="mt-1 break-all text-sm text-gray-500">
+                {user?.email}
+              </p>
             </div>
 
             {/* Account Information */}
-            <div className="mt-8 border-t border-gray-200 pt-6">
-              <h2 className="mb-4 text-center text-lg font-semibold text-gray-800">
+            <div className="mt-6 border-t border-gray-200 pt-5 sm:mt-8 sm:pt-6">
+              <h2 className="mb-4 text-center text-base font-semibold text-gray-800 sm:text-lg">
                 অ্যাকাউন্ট তথ্য
               </h2>
 
-              <div className="space-y-3 rounded-xl bg-gray-50 p-5">
-                <div className="text-sm text-gray-600">
+              <div className="space-y-3 rounded-xl bg-gray-50 p-3 sm:p-5">
+                <div className="break-words text-sm text-gray-600">
                   নাম:{" "}
                   <span className="font-bold text-gray-900">{user?.name}</span>
                 </div>
 
-                <div className="text-sm text-gray-600">
+                <div className="break-words text-sm text-gray-600">
                   ইমেইল:{" "}
                   <span className="font-bold text-gray-900">{user?.email}</span>
                 </div>
@@ -84,7 +87,7 @@ const ProfilePage = () => {
             {/* Edit Button */}
             <button
               onClick={() => setIsEditing(true)}
-              className="btn mt-6 w-full border-0 bg-cyan-700 text-white hover:bg-cyan-800"
+              className="btn mt-5 min-h-11 w-full border-0 bg-cyan-700 text-white hover:bg-cyan-800 sm:mt-6"
             >
               Edit Profile
             </button>
@@ -93,22 +96,27 @@ const ProfilePage = () => {
 
         {/* Edit Card */}
         <div
-          className={`absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-in-out ${
+          className={`absolute inset-0 flex items-start justify-center overflow-y-auto transition-transform duration-500 ease-in-out sm:items-center ${
             isEditing ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+          <div className="my-2 w-full max-w-md rounded-2xl border border-gray-200 bg-white p-4 shadow-sm sm:my-0 sm:p-6 md:p-8">
             {/* Header */}
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900">Edit Profile</h2>
+            <div className="mb-6 sm:mb-8">
+              <h2 className="text-xl font-bold text-gray-900 sm:text-2xl">
+                Edit Profile
+              </h2>
 
-              <p className="mt-2 text-sm text-gray-500">
+              <p className="mt-2 text-sm leading-6 text-gray-500">
                 আপনার নাম অথবা প্রোফাইল ছবি পরিবর্তন করুন।
               </p>
             </div>
 
             {/* Form */}
-            <form onSubmit={handleUpdateProfile} className="space-y-5">
+            <form
+              onSubmit={handleUpdateProfile}
+              className="space-y-4 sm:space-y-5"
+            >
               {/* Name */}
               <div>
                 <label className="mb-2 block text-sm font-medium text-gray-700">
@@ -119,7 +127,7 @@ const ProfilePage = () => {
                   name="name"
                   type="text"
                   placeholder="নতুন নাম লিখুন"
-                  className="input w-full border-gray-300 bg-white"
+                  className="input h-11 w-full border-gray-300 bg-white text-sm sm:h-12"
                 />
               </div>
 
@@ -133,19 +141,19 @@ const ProfilePage = () => {
                   name="image"
                   type="url"
                   placeholder="নতুন ছবির URL দিন"
-                  className="input w-full border-gray-300 bg-white"
+                  className="input h-11 w-full border-gray-300 bg-white text-sm sm:h-12"
                 />
 
-                <p className="mt-2 text-xs text-gray-400">
+                <p className="mt-2 text-xs leading-5 text-gray-400">
                   Image URL দিলে আপনার profile picture পরিবর্তন হবে।
                 </p>
               </div>
 
               {/* Buttons */}
-              <div className="flex gap-3 pt-3">
+              <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:pt-3">
                 <button
                   type="submit"
-                  className="btn flex-1 border-0 bg-cyan-700 text-white hover:bg-cyan-800"
+                  className="btn min-h-11 w-full flex-1 border-0 bg-cyan-700 text-white hover:bg-cyan-800"
                 >
                   আপডেট করুন
                 </button>
@@ -153,7 +161,7 @@ const ProfilePage = () => {
                 <button
                   type="button"
                   onClick={() => setIsEditing(false)}
-                  className="btn flex-1 border border-gray-300 bg-white text-gray-700 hover:bg-gray-100"
+                  className="btn min-h-11 w-full flex-1 border border-gray-300 bg-white text-gray-700 hover:bg-gray-100"
                 >
                   বাতিল
                 </button>
@@ -162,7 +170,7 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

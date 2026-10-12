@@ -21,11 +21,12 @@ export default async function Home() {
   const otherSections: NewsSection[] = section.slice(1);
 
   return (
-    <div>
-      <div className="grid grid-cols-3 gap-5 max-w-7xl mx-auto mt-5">
-        {/* news section */}
-        <div className="col-span-2">
+    <div className="mx-auto mt-3 w-full max-w-7xl min-w-0 px-3 sm:mt-5 sm:px-4">
+      <div className="grid min-w-0 grid-cols-1 gap-5 md:grid-cols-3 md:gap-5">
+        {/* News Section */}
+        <div className="min-w-0 md:col-span-2">
           <MainNews news={mainNews} />
+
           {otherSections
             .filter(
               (os) =>
@@ -34,17 +35,18 @@ export default async function Home() {
                 os.title !== "বিবিসি বাংলা এখন ইন্সটাগ্রামে!",
             )
             .map((os) => (
-              <section key={os.curationId} className="mt-10">
+              <section key={os.curationId} className="mt-6 min-w-0 sm:mt-10">
                 {/* Section Title */}
-                <div className="mb-5 flex items-center gap-3">
-                  <h2 className="text-2xl font-bold text-gray-900">
+                <div className="mb-3 flex min-w-0 items-center gap-2 sm:mb-5 sm:gap-3">
+                  <h2 className="shrink-0 text-base font-bold text-gray-900 sm:text-xl md:text-2xl">
                     {os.title}
                   </h2>
 
-                  <div className="h-1 flex-1 bg-[#2FA5B4]"></div>
+                  <div className="h-1 min-w-0 flex-1 bg-[#2FA5B4]"></div>
                 </div>
 
-                <div className="grid grid-cols-3 gap-5">
+                {/* News Cards */}
+                <div className="grid min-w-0 grid-cols-1 gap-3 sm:gap-5 md:grid-cols-3">
                   {os.articles.map((article) => (
                     <NewsCard key={article.id} news={article} />
                   ))}
@@ -53,8 +55,8 @@ export default async function Home() {
             ))}
         </div>
 
-        {/* most read section */}
-        <div className="col-span-1">
+        {/* Most Read Section */}
+        <div className="min-w-0 md:col-span-1">
           <MarkRead />
         </div>
       </div>

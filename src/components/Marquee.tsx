@@ -13,26 +13,34 @@ const Marquee = async () => {
   const headlines: Headlines[] = data.data;
 
   return (
-    <div className="mt-3 bg-slate-700 text-white">
-      <div className="mx-auto flex max-w-7xl">
-        <div className="rounded-l-sm bg-red-800 px-5 py-1 font-bold">
+    <div className="mt-2 w-full max-w-full overflow-hidden bg-slate-700 sm:mt-3">
+      <div className="mx-auto flex w-full max-w-7xl items-stretch overflow-hidden">
+        {/* Latest News Label */}
+        <div className="z-10 flex shrink-0 items-center rounded-r-sm bg-red-800 px-2 py-0.5 text-xs font-bold text-white sm:px-5 sm:py-1 sm:text-base">
           সর্বশেষ
         </div>
 
-        <MarqueeText className="py-1" direction="right" duration={10}>
-          {headlines.map((h) => (
-            <span key={h.id}>
-              <Link
-                href={`/news/${h.id}`}
-                className="transition-colors hover:text-yellow-300"
-              >
-                {h.title}
-              </Link>
+        {/* Scrolling Headlines */}
+        <div className="min-w-0 flex-1 overflow-hidden text-sm leading-5 text-white sm:text-base">
+          <MarqueeText
+            className="h-full py-0.5 sm:py-1"
+            direction="right"
+            duration={10}
+          >
+            {headlines.map((h) => (
+              <span key={h.id} className="whitespace-nowrap">
+                <Link
+                  href={`/news/${h.id}`}
+                  className="transition-colors hover:text-yellow-300"
+                >
+                  {h.title}
+                </Link>
 
-              <span className="mx-5">•</span>
-            </span>
-          ))}
-        </MarqueeText>
+                <span className="mx-3 sm:mx-5">•</span>
+              </span>
+            ))}
+          </MarqueeText>
+        </div>
       </div>
     </div>
   );
